@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FoodManager.Views
+namespace FoodManager
 {
     public partial class Login : Form
     {
