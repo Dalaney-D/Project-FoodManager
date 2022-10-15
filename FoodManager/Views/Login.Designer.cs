@@ -29,33 +29,135 @@ namespace FoodManager
         /// </summary>
         private void InitializeComponent()
         {
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.bntLogin = new System.Windows.Forms.Button();
+            this.bntExit = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.txbPass = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.txbUserName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.bntLogin);
+            this.panel1.Controls.Add(this.bntExit);
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(743, 231);
+            this.panel1.TabIndex = 0;
+            // 
+            // bntLogin
+            // 
+            this.bntLogin.Location = new System.Drawing.Point(466, 169);
+            this.bntLogin.Name = "bntLogin";
+            this.bntLogin.Size = new System.Drawing.Size(112, 34);
+            this.bntLogin.TabIndex = 4;
+            this.bntLogin.Text = "Đăng nhập";
+            this.bntLogin.UseVisualStyleBackColor = true;
+            this.bntLogin.Click += new System.EventHandler(this.bntLogin_Click);
+            // 
+            // bntExit
+            // 
+            this.bntExit.Location = new System.Drawing.Point(595, 169);
+            this.bntExit.Name = "bntExit";
+            this.bntExit.Size = new System.Drawing.Size(112, 34);
+            this.bntExit.TabIndex = 3;
+            this.bntExit.Text = "Thoát";
+            this.bntExit.UseVisualStyleBackColor = true;
+            this.bntExit.Click += new System.EventHandler(this.bntExit_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.txbPass);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Location = new System.Drawing.Point(3, 86);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(740, 77);
+            this.panel3.TabIndex = 2;
+            // 
+            // txbPass
+            // 
+            this.txbPass.Location = new System.Drawing.Point(274, 19);
+            this.txbPass.Name = "txbPass";
+            this.txbPass.Size = new System.Drawing.Size(430, 31);
+            this.txbPass.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(9, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(128, 32);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Mật khẩu:";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.txbUserName);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(740, 77);
+            this.panel2.TabIndex = 0;
+            // 
+            // txbUserName
+            // 
+            this.txbUserName.Location = new System.Drawing.Point(274, 19);
+            this.txbUserName.Name = "txbUserName";
+            this.txbUserName.Size = new System.Drawing.Size(430, 31);
+            this.txbUserName.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(171, 49);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(9, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 20);
+            this.label1.Size = new System.Drawing.Size(190, 32);
             this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.label1.Text = "Tên đăng nhập:";
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AcceptButton = this.bntLogin;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
+            this.CancelButton = this.bntExit;
+            this.ClientSize = new System.Drawing.Size(744, 235);
+            this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Login";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Đăng Nhập";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
+            this.panel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox txbPass;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txbUserName;
+        private System.Windows.Forms.Button bntExit;
+        private System.Windows.Forms.Button bntLogin;
     }
 }
