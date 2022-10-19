@@ -1,4 +1,5 @@
 ﻿using FoodManager.Views;
+using Repository.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +15,14 @@ namespace FoodManager
 {
     public partial class Home : Form
     {
+        public static User _user=Login._user;
         public Home()
         {
             InitializeComponent();
+            if (!_user.Role.Equals("Admin"))
+            {
+                adminToolStripMenuItem.Enabled = false;
+            }
         }
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -29,7 +35,7 @@ namespace FoodManager
             Profile f = new Profile();
             f.ShowDialog();
         }
-
+        
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Admin admin = new Admin();

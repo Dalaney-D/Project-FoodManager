@@ -87,6 +87,7 @@ namespace FoodManager
             // 
             this.txbPass.Location = new System.Drawing.Point(274, 19);
             this.txbPass.Name = "txbPass";
+            this.txbPass.PasswordChar = '*';
             this.txbPass.Size = new System.Drawing.Size(430, 31);
             this.txbPass.TabIndex = 1;
             // 

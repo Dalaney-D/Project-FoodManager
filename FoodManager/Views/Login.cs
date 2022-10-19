@@ -1,4 +1,6 @@
 ﻿using FoodManager.DAO;
+using Repository;
+using Repository.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,7 @@ namespace FoodManager
 {
     public partial class Login : Form
     {
+        public static User _user=new User();
         public Login()
         {
             InitializeComponent();
@@ -23,25 +26,34 @@ namespace FoodManager
             Application.Exit();
         }
 
-        bool bLogin(string username, string pass)
-        {
-            return AccountDAO.Instance.bLogin(username, pass);
-        }
 
         private void bntLogin_Click(object sender, EventArgs e)
         {
             string username = txbUserName.Text;
             string pass = txbPass.Text;
-            if (bLogin(username, pass))
+
+            if (username == "")
             {
-                Home f = new Home();
-                this.Hide();
-                f.ShowDialog();
-                f.Show();
+                MessageBox.Show("Tên đăng nhập không thể để trống. Vui Lòng nhập tên đăng nhập");
+            } else if (pass == "")
+            {
+                MessageBox.Show("Mật khẩu không thể để trống. Vui Lòng nhập mật khẩu");
             }
-            else
-            {
-                MessageBox.Show("Sai tên tài khoản hoặc mật khẩu ");
+            else {
+                var repo = new RepositoryBase<User>();
+                var user= repo.GetAll().Where(p=>p.UserId == username && p.Password==pass).FirstOrDefault();
+                if(user!=null){
+                    _user=user;
+
+                    Home f = new Home();
+                    this.Hide();
+                    f.ShowDialog();
+                    this.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Sai tên tài khoản hoặc mật khẩu ");
+                }
             }
         }
 
