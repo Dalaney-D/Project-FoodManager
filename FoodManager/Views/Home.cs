@@ -1,4 +1,5 @@
 ﻿using FoodManager.Views;
+using Repository;
 using Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,36 @@ namespace FoodManager
             {
                 adminToolStripMenuItem.Enabled = false;
             }
+
+            //var repo = new RepositoryBase<User>();
+            //var list = repo.GetAll().Select(p => new { p.UserId, p.Role }).ToList();
+            //dtgvTest.DataSource = list;
+            LoadTable();
+
         }
 
+        #region Method
+        void LoadTable()
+        {
+            var repo = new RepositoryBase<Table>();
+            var list = repo.GetAll().Select(p => new {p.TableId, p.Status}).ToList();
+            foreach (var item in list)
+            {
+                Button btn = new Button() { Width = 100, Height = 100};
+                btn.Text = "Bàn " + item.TableId + Environment.NewLine + Convert.ToString(item.Status?"Có khách":"Trống");
+
+                if (item.Status)
+                {
+                    btn.BackColor = Color.LightPink;
+                }
+                else {
+                    btn.BackColor = Color.Aqua;
+                }
+                flpTable.Controls.Add(btn);
+            }
+        }
+        #endregion
+        #region Events
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -36,10 +65,17 @@ namespace FoodManager
             f.ShowDialog();
         }
         
+
+        private void Home_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Admin admin = new Admin();
-            admin.ShowDialog(); 
+            Admin a = new Admin();
+            a.ShowDialog();
         }
+        #endregion
     }
 }
