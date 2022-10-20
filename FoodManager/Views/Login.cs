@@ -64,5 +64,10 @@ namespace FoodManager
                 e.Cancel = true;
             }
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
