@@ -1,4 +1,4 @@
-﻿using FoodManager.DAO;
+﻿
 using Repository;
 using Repository.Models;
 using System;
@@ -63,11 +63,6 @@ namespace FoodManager
             {
                 e.Cancel = true;
             }
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
