@@ -41,5 +41,11 @@ namespace Repository
             //_dbSet.Update(entity);
             _context.SaveChanges();
         }
+
+        public void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+            _context.SaveChanges();
+        }
     }
 }
