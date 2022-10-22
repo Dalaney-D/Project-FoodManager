@@ -19,6 +19,9 @@ namespace FoodManager
         public Login()
         {
             InitializeComponent();
+            txbUserName.Text = "";
+            txbPass.Text = "";
+
         }
 
         private void bntExit_Click(object sender, EventArgs e)

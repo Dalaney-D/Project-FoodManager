@@ -18,7 +18,7 @@ namespace Repository
             _dbSet = _context.Set<T>();
         }
 
-        public T Get(Guid id)
+        public T Get(string id)
         {
             return _dbSet.FirstOrDefault();
         }
@@ -39,6 +39,12 @@ namespace Repository
             var tracker = _context.Attach(entity);
             tracker.State = EntityState.Modified;
             //_dbSet.Update(entity);
+            _context.SaveChanges();
+        }
+
+        public void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
             _context.SaveChanges();
         }
     }
