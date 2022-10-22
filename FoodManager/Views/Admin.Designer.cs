@@ -66,12 +66,7 @@ namespace FoodManager.Views
             this.btnDeleteTable = new System.Windows.Forms.Button();
             this.btnAddTable = new System.Windows.Forms.Button();
             this.tpFoodCategory = new System.Windows.Forms.TabPage();
-            this.btnSearchCate = new System.Windows.Forms.Button();
-            this.panel28 = new System.Windows.Forms.Panel();
-            this.txtSearchName = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
-            this.btnResetForm = new System.Windows.Forms.Button();
             this.panel15 = new System.Windows.Forms.Panel();
             this.txtNameCategory = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -79,6 +74,7 @@ namespace FoodManager.Views
             this.txtCategoryID = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.btnShowCategory = new System.Windows.Forms.Button();
             this.btnEditCategory = new System.Windows.Forms.Button();
             this.btnDeleteCategory = new System.Windows.Forms.Button();
             this.btnAddCategory = new System.Windows.Forms.Button();
@@ -133,7 +129,6 @@ namespace FoodManager.Views
             this.panel19.SuspendLayout();
             this.panel11.SuspendLayout();
             this.tpFoodCategory.SuspendLayout();
-            this.panel28.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel15.SuspendLayout();
             this.panel18.SuspendLayout();
@@ -537,8 +532,6 @@ namespace FoodManager.Views
             // 
             // tpFoodCategory
             // 
-            this.tpFoodCategory.Controls.Add(this.btnSearchCate);
-            this.tpFoodCategory.Controls.Add(this.panel28);
             this.tpFoodCategory.Controls.Add(this.panel14);
             this.tpFoodCategory.Controls.Add(this.panel12);
             this.tpFoodCategory.Controls.Add(this.panel13);
@@ -551,45 +544,8 @@ namespace FoodManager.Views
             this.tpFoodCategory.Text = "Doanh mục";
             this.tpFoodCategory.UseVisualStyleBackColor = true;
             // 
-            // btnSearchCate
-            // 
-            this.btnSearchCate.Location = new System.Drawing.Point(921, 72);
-            this.btnSearchCate.Name = "btnSearchCate";
-            this.btnSearchCate.Size = new System.Drawing.Size(101, 31);
-            this.btnSearchCate.TabIndex = 9;
-            this.btnSearchCate.Text = "Tìm Kiếm";
-            this.btnSearchCate.UseVisualStyleBackColor = true;
-            this.btnSearchCate.Click += new System.EventHandler(this.btnSearchCate_Click);
-            // 
-            // panel28
-            // 
-            this.panel28.Controls.Add(this.txtSearchName);
-            this.panel28.Controls.Add(this.label13);
-            this.panel28.Location = new System.Drawing.Point(586, 17);
-            this.panel28.Name = "panel28";
-            this.panel28.Size = new System.Drawing.Size(452, 49);
-            this.panel28.TabIndex = 8;
-            // 
-            // txtSearchName
-            // 
-            this.txtSearchName.Location = new System.Drawing.Point(173, 12);
-            this.txtSearchName.Name = "txtSearchName";
-            this.txtSearchName.Size = new System.Drawing.Size(243, 27);
-            this.txtSearchName.TabIndex = 1;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(3, 12);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(164, 24);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Tên doanh mục:";
-            // 
             // panel14
             // 
-            this.panel14.Controls.Add(this.btnResetForm);
             this.panel14.Controls.Add(this.panel15);
             this.panel14.Controls.Add(this.panel18);
             this.panel14.Location = new System.Drawing.Point(729, 121);
@@ -597,16 +553,6 @@ namespace FoodManager.Views
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(574, 779);
             this.panel14.TabIndex = 7;
-            // 
-            // btnResetForm
-            // 
-            this.btnResetForm.Location = new System.Drawing.Point(338, 123);
-            this.btnResetForm.Name = "btnResetForm";
-            this.btnResetForm.Size = new System.Drawing.Size(101, 31);
-            this.btnResetForm.TabIndex = 10;
-            this.btnResetForm.Text = "Reset ";
-            this.btnResetForm.UseVisualStyleBackColor = true;
-            this.btnResetForm.Click += new System.EventHandler(this.btnResetForm_Click);
             // 
             // panel15
             // 
@@ -669,6 +615,7 @@ namespace FoodManager.Views
             // 
             // panel12
             // 
+            this.panel12.Controls.Add(this.btnShowCategory);
             this.panel12.Controls.Add(this.btnEditCategory);
             this.panel12.Controls.Add(this.btnDeleteCategory);
             this.panel12.Controls.Add(this.btnAddCategory);
@@ -697,7 +644,6 @@ namespace FoodManager.Views
             this.btnEditCategory.TabIndex = 2;
             this.btnEditCategory.Text = "Sửa";
             this.btnEditCategory.UseVisualStyleBackColor = true;
-            this.btnEditCategory.Click += new System.EventHandler(this.btnEditCategory_Click);
             // 
             // btnDeleteCategory
             // 
@@ -708,7 +654,6 @@ namespace FoodManager.Views
             this.btnDeleteCategory.TabIndex = 1;
             this.btnDeleteCategory.Text = "Xoá";
             this.btnDeleteCategory.UseVisualStyleBackColor = true;
-            this.btnDeleteCategory.Click += new System.EventHandler(this.btnDeleteCategory_Click);
             // 
             // btnAddCategory
             // 
@@ -719,7 +664,6 @@ namespace FoodManager.Views
             this.btnAddCategory.TabIndex = 0;
             this.btnAddCategory.Text = "Thêm";
             this.btnAddCategory.UseVisualStyleBackColor = true;
-            this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
             // 
             // panel13
             // 
@@ -740,7 +684,6 @@ namespace FoodManager.Views
             this.dtgvCategory.RowTemplate.Height = 29;
             this.dtgvCategory.Size = new System.Drawing.Size(705, 771);
             this.dtgvCategory.TabIndex = 0;
-            this.dtgvCategory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvCategory_CellContentClick_1);
             // 
             // tpFood
             // 
@@ -1110,8 +1053,6 @@ namespace FoodManager.Views
             this.panel19.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.tpFoodCategory.ResumeLayout(false);
-            this.panel28.ResumeLayout(false);
-            this.panel28.PerformLayout();
             this.panel14.ResumeLayout(false);
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
@@ -1158,6 +1099,7 @@ namespace FoodManager.Views
         private System.Windows.Forms.TextBox txtCategoryID;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Button btnShowCategory;
         private System.Windows.Forms.Button btnEditCategory;
         private System.Windows.Forms.Button btnDeleteCategory;
         private System.Windows.Forms.Button btnAddCategory;
@@ -1229,11 +1171,5 @@ namespace FoodManager.Views
         private System.Windows.Forms.Panel panel27;
         private System.Windows.Forms.DataGridView dtgvAccount;
         private System.Windows.Forms.Button btnAddNew;
-        private System.Windows.Forms.Button btnResetPassword;
-        private System.Windows.Forms.Button btnSearchCate;
-        private System.Windows.Forms.Panel panel28;
-        private System.Windows.Forms.TextBox txtSearchName;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button btnResetForm;
     }
 }
