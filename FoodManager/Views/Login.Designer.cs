@@ -95,7 +95,6 @@ namespace FoodManager
             this.txbPass.PasswordChar = '*';
             this.txbPass.Size = new System.Drawing.Size(430, 31);
             this.txbPass.TabIndex = 1;
-            this.txbPass.Text = "1";
             // 
             // label2
             // 
@@ -125,7 +124,6 @@ namespace FoodManager
             this.txbUserName.Name = "txbUserName";
             this.txbUserName.Size = new System.Drawing.Size(430, 31);
             this.txbUserName.TabIndex = 1;
-            this.txbUserName.Text = "duynv";
             // 
             // label1
             // 
@@ -146,7 +144,7 @@ namespace FoodManager
             this.CancelButton = this.bntExit;
             this.ClientSize = new System.Drawing.Size(744, 235);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng Nhập";

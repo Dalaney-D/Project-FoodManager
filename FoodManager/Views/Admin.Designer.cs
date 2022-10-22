@@ -33,6 +33,7 @@ namespace FoodManager.Views
             this.panel27 = new System.Windows.Forms.Panel();
             this.dtgvAccount = new System.Windows.Forms.DataGridView();
             this.panel23 = new System.Windows.Forms.Panel();
+            this.btnCancelChange = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnEditAccount = new System.Windows.Forms.Button();
@@ -45,8 +46,6 @@ namespace FoodManager.Views
             this.panel26 = new System.Windows.Forms.Panel();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.panel22 = new System.Windows.Forms.Panel();
-            this.btnAddAccount = new System.Windows.Forms.Button();
             this.tpTable = new System.Windows.Forms.TabPage();
             this.panel20 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -119,7 +118,6 @@ namespace FoodManager.Views
             this.panel24.SuspendLayout();
             this.panel25.SuspendLayout();
             this.panel26.SuspendLayout();
-            this.panel22.SuspendLayout();
             this.tpTable.SuspendLayout();
             this.panel20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -157,7 +155,6 @@ namespace FoodManager.Views
             // 
             this.tpAccount.Controls.Add(this.panel27);
             this.tpAccount.Controls.Add(this.panel23);
-            this.tpAccount.Controls.Add(this.panel22);
             this.tpAccount.Location = new System.Drawing.Point(4, 34);
             this.tpAccount.Margin = new System.Windows.Forms.Padding(4);
             this.tpAccount.Name = "tpAccount";
@@ -170,10 +167,10 @@ namespace FoodManager.Views
             // panel27
             // 
             this.panel27.Controls.Add(this.dtgvAccount);
-            this.panel27.Location = new System.Drawing.Point(6, 116);
+            this.panel27.Location = new System.Drawing.Point(8, 8);
             this.panel27.Margin = new System.Windows.Forms.Padding(4);
             this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(714, 779);
+            this.panel27.Size = new System.Drawing.Size(714, 900);
             this.panel27.TabIndex = 10;
             // 
             // dtgvAccount
@@ -184,27 +181,39 @@ namespace FoodManager.Views
             this.dtgvAccount.Name = "dtgvAccount";
             this.dtgvAccount.RowHeadersWidth = 51;
             this.dtgvAccount.RowTemplate.Height = 29;
-            this.dtgvAccount.Size = new System.Drawing.Size(705, 768);
+            this.dtgvAccount.Size = new System.Drawing.Size(705, 888);
             this.dtgvAccount.TabIndex = 0;
             this.dtgvAccount.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvAccount_CellDoubleClick);
             // 
             // panel23
             // 
+            this.panel23.Controls.Add(this.btnCancelChange);
             this.panel23.Controls.Add(this.btnAddNew);
             this.panel23.Controls.Add(this.btnDeleteAccount);
             this.panel23.Controls.Add(this.btnEditAccount);
             this.panel23.Controls.Add(this.panel24);
             this.panel23.Controls.Add(this.panel25);
             this.panel23.Controls.Add(this.panel26);
-            this.panel23.Location = new System.Drawing.Point(728, 116);
+            this.panel23.Location = new System.Drawing.Point(726, 8);
             this.panel23.Margin = new System.Windows.Forms.Padding(4);
             this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(574, 779);
+            this.panel23.Size = new System.Drawing.Size(574, 900);
             this.panel23.TabIndex = 9;
+            // 
+            // btnCancelChange
+            // 
+            this.btnCancelChange.Location = new System.Drawing.Point(436, 211);
+            this.btnCancelChange.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancelChange.Name = "btnCancelChange";
+            this.btnCancelChange.Size = new System.Drawing.Size(118, 46);
+            this.btnCancelChange.TabIndex = 8;
+            this.btnCancelChange.Text = "Hủy";
+            this.btnCancelChange.UseVisualStyleBackColor = true;
+            this.btnCancelChange.Click += new System.EventHandler(this.btnCancelChange_Click);
             // 
             // btnAddNew
             // 
-            this.btnAddNew.Location = new System.Drawing.Point(145, 211);
+            this.btnAddNew.Location = new System.Drawing.Point(18, 211);
             this.btnAddNew.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddNew.Name = "btnAddNew";
             this.btnAddNew.Size = new System.Drawing.Size(118, 46);
@@ -215,7 +224,7 @@ namespace FoodManager.Views
             // 
             // btnDeleteAccount
             // 
-            this.btnDeleteAccount.Location = new System.Drawing.Point(280, 211);
+            this.btnDeleteAccount.Location = new System.Drawing.Point(154, 211);
             this.btnDeleteAccount.Margin = new System.Windows.Forms.Padding(4);
             this.btnDeleteAccount.Name = "btnDeleteAccount";
             this.btnDeleteAccount.Size = new System.Drawing.Size(118, 46);
@@ -226,7 +235,7 @@ namespace FoodManager.Views
             // 
             // btnEditAccount
             // 
-            this.btnEditAccount.Location = new System.Drawing.Point(406, 211);
+            this.btnEditAccount.Location = new System.Drawing.Point(296, 211);
             this.btnEditAccount.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditAccount.Name = "btnEditAccount";
             this.btnEditAccount.Size = new System.Drawing.Size(118, 46);
@@ -323,26 +332,6 @@ namespace FoodManager.Views
             this.label12.Size = new System.Drawing.Size(176, 29);
             this.label12.TabIndex = 0;
             this.label12.Text = "Tên tài khoản:";
-            // 
-            // panel22
-            // 
-            this.panel22.Controls.Add(this.btnAddAccount);
-            this.panel22.Location = new System.Drawing.Point(4, 8);
-            this.panel22.Margin = new System.Windows.Forms.Padding(4);
-            this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(714, 106);
-            this.panel22.TabIndex = 7;
-            // 
-            // btnAddAccount
-            // 
-            this.btnAddAccount.Location = new System.Drawing.Point(7, 30);
-            this.btnAddAccount.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAddAccount.Name = "btnAddAccount";
-            this.btnAddAccount.Size = new System.Drawing.Size(271, 56);
-            this.btnAddAccount.TabIndex = 0;
-            this.btnAddAccount.Text = "Thêm tài khoản mới";
-            this.btnAddAccount.UseVisualStyleBackColor = true;
-            this.btnAddAccount.Click += new System.EventHandler(this.btnAddAccount_Click);
             // 
             // tpTable
             // 
@@ -1040,7 +1029,6 @@ namespace FoodManager.Views
             this.panel25.PerformLayout();
             this.panel26.ResumeLayout(false);
             this.panel26.PerformLayout();
-            this.panel22.ResumeLayout(false);
             this.tpTable.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -1164,12 +1152,11 @@ namespace FoodManager.Views
         private System.Windows.Forms.Panel panel26;
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Panel panel22;
         private System.Windows.Forms.Button btnEditAccount;
         private System.Windows.Forms.Button btnDeleteAccount;
-        private System.Windows.Forms.Button btnAddAccount;
         private System.Windows.Forms.Panel panel27;
         private System.Windows.Forms.DataGridView dtgvAccount;
         private System.Windows.Forms.Button btnAddNew;
+        private System.Windows.Forms.Button btnCancelChange;
     }
 }

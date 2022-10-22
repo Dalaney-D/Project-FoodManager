@@ -22,11 +22,6 @@ namespace FoodManager.Views
             InitializeComponent();
         }
 
-        private void dtgvCategory_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void tcAdmin_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -41,7 +36,7 @@ namespace FoodManager.Views
         {
             var repo = new RepositoryBase<User>();
             var listUser = repo.GetAll().Select(p => new { p.UserId, p.FullName, p.Role }).ToList();
-            
+
             dtgvAccount.DataSource = listUser;
             var listUser1 = repo.GetAll().Select(p => new { p.Role }).ToList();
             List<string> list = new List<string>();
@@ -59,9 +54,7 @@ namespace FoodManager.Views
             cbAccountType.DisplayMember = "typeName";
             cbAccountType.ValueMember = "typeName";
             cbAccountType.DataSource = listType;
-            btnEditAccount.Enabled = false;
-            btnDeleteAccount.Enabled = false;
-            btnAddAccount.Enabled = true;
+            ResetFormAccount();
 
         }
 
@@ -73,11 +66,12 @@ namespace FoodManager.Views
             var repo = new RepositoryBase<User>();
 
             txtDisplayName.Text = row.Cells["FullName"].Value.ToString();
-            
+
             cbAccountType.Text = row.Cells["Role"].Value.ToString();
             btnEditAccount.Enabled = true;
             btnDeleteAccount.Enabled = true;
             btnAddNew.Enabled = false;
+            txtUserName.ReadOnly = true;
 
 
 
@@ -87,7 +81,7 @@ namespace FoodManager.Views
         {
             if (txtUserName.Text == "" || txtDisplayName.Text == "" || cbAccountType.SelectedValue.ToString() == null)
             {
-                MessageBox.Show("All Input is not Null, please try again", "Notification", MessageBoxButtons.OK);
+                MessageBox.Show("Vui lòng không để trống thông tin", "Thông báo", MessageBoxButtons.OK);
                 return false;
             }
             else
@@ -119,29 +113,6 @@ namespace FoodManager.Views
             var displayname = txtDisplayName.Text.ToString();
             var type = cbAccountType.SelectedValue.ToString();
 
-            if (username == "")
-            {
-                MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Error", MessageBoxButtons.OK);
-                btnEditAccount.Enabled = false;
-                btnDeleteAccount.Enabled = false;
-                return;
-            }
-
-            if (displayname == "")
-            {
-                MessageBox.Show("Vui lòng nhập tên hiển thị!", "Error", MessageBoxButtons.OK);
-                btnEditAccount.Enabled = false;
-                btnDeleteAccount.Enabled = false;
-                return;
-            }
-
-            if (type == "")
-            {
-                MessageBox.Show("Vui lòng chọn loại tài khoản!", "Error", MessageBoxButtons.OK);
-                btnEditAccount.Enabled = false;
-                btnDeleteAccount.Enabled = false;
-                return;
-            }
 
             var repo = new RepositoryBase<User>();
             var checkUsername = repo.GetAll().Where(p => p.UserId == username).FirstOrDefault();
@@ -154,8 +125,8 @@ namespace FoodManager.Views
                 return;
             }
 
-            User user= new User();
-            user.UserId=username.ToString();
+            User user = new User();
+            user.UserId = username.ToString();
             user.FullName = displayname.ToString();
             user.Role = type.ToString();
             user.Password = "000000";
@@ -163,25 +134,16 @@ namespace FoodManager.Views
             repo.Create(user);
             var listUser = repo.GetAll().Select(p => new { p.UserId, p.FullName, p.Role }).ToList();
             dtgvAccount.DataSource = listUser;
+            ResetFormAccount();
         }
 
         private void btnEditAccount_Click(object sender, EventArgs e)
         {
-            if (txtDisplayName.Text.ToString() == "")
+            if (!CheckNull())
             {
-                MessageBox.Show("Vui lòng nhập tên hiển thị!", "Error", MessageBoxButtons.OK);
-                btnEditAccount.Enabled = false;
-                btnDeleteAccount.Enabled = false;
                 return;
             }
 
-            if (cbAccountType.SelectedValue.ToString() == "")
-            {
-                MessageBox.Show("Vui lòng chọn loại tài khoản!", "Error", MessageBoxButtons.OK);
-                btnEditAccount.Enabled = false;
-                btnDeleteAccount.Enabled = false;
-                return;
-            }
 
             var username = txtUserName.Text.ToString();
             var displayname = txtDisplayName.Text.ToString();
@@ -197,12 +159,14 @@ namespace FoodManager.Views
                 repo.Update(user);
                 var listUser = repo.GetAll().Select(p => new { p.UserId, p.FullName, p.Role }).ToList();
                 dtgvAccount.DataSource = listUser;
+                ResetFormAccount();
             }
-            
+
         }
 
         private void btnDeleteAccount_Click(object sender, EventArgs e)
         {
+
 
             var username = txtUserName.Text.ToString();
             var repo = new RepositoryBase<User>();
@@ -216,6 +180,7 @@ namespace FoodManager.Views
                     repo.Delete(user);
                     var listUser = repo.GetAll().Select(p => new { p.UserId, p.FullName, p.Role }).ToList();
                     dtgvAccount.DataSource = listUser;
+                    ResetFormAccount();
 
                 }
                 else if (dialogResult == DialogResult.No)
@@ -224,6 +189,23 @@ namespace FoodManager.Views
                 }
             }
 
+        }
+
+        private void ResetFormAccount()
+        {
+            txtUserName.ReadOnly = false;
+            txtUserName.Text = "";
+            txtDisplayName.Text = "";
+            cbAccountType.SelectedIndex = 0;
+
+            btnAddNew.Enabled = true;
+            btnEditAccount.Enabled = false;
+            btnDeleteAccount.Enabled = false;
+        }
+
+        private void btnCancelChange_Click(object sender, EventArgs e)
+        {
+            ResetFormAccount();
         }
     }
     }

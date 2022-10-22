@@ -17,7 +17,7 @@ namespace FoodManager
 {
     public partial class Home : Form
     {
-        public static User _user=Login._user;
+        private User _user = null;
         public Home()
         {
             InitializeComponent();
@@ -32,6 +32,26 @@ namespace FoodManager
             LoadTable();
 
         }
+
+        public Home(User user)
+        {
+
+            InitializeComponent();
+            this._user = user;
+            if (!_user.Role.Equals("Admin"))
+            {
+                adminToolStripMenuItem.Enabled = false;
+            }
+
+            //var repo = new RepositoryBase<User>();
+            //var list = repo.GetAll().Select(p => new { p.UserId, p.Role }).ToList();
+            //dtgvTest.DataSource = list;
+            LoadTable();
+
+
+        }
+
+
 
         #region Method
         void LoadTable()
@@ -102,8 +122,12 @@ namespace FoodManager
 
         private void thôngTinCáNhânToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Profile f = new Profile();
+            MyAccount f = new MyAccount(_user);
+
             f.ShowDialog();
+            var repo = new RepositoryBase<User>();
+            var newUser = repo.GetAll().Where(p => p.UserId.Equals(_user.UserId)).FirstOrDefault();
+            this._user = newUser;
         }
         
 

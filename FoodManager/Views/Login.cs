@@ -48,7 +48,7 @@ namespace FoodManager
                 if(user!=null){
                     _user=user;
 
-                    Home f = new Home();
+                    Home f = new Home(user);
                     this.Hide();
                     f.ShowDialog();
                     this.Show();
