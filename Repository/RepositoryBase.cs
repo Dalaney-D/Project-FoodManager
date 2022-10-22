@@ -23,6 +23,11 @@ namespace Repository
             return _dbSet.FirstOrDefault();
         }
 
+        public IQueryable<T> GetAll2()
+        {
+            return _dbSet;
+        }
+
         public List<T> GetAll()
         {
             return _dbSet.ToList();

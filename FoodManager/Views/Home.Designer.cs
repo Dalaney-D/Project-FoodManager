@@ -35,6 +35,7 @@ namespace FoodManager
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txbTotalPrice = new System.Windows.Forms.TextBox();
             this.cnSwitchTable = new System.Windows.Forms.ComboBox();
             this.btnSwitchTable = new System.Windows.Forms.Button();
             this.nmDiscount = new System.Windows.Forms.NumericUpDown();
@@ -47,6 +48,10 @@ namespace FoodManager
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lsvBill = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.flpTable = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -95,12 +100,13 @@ namespace FoodManager
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1136, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1141, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.txbTotalPrice);
             this.panel3.Controls.Add(this.cnSwitchTable);
             this.panel3.Controls.Add(this.btnSwitchTable);
             this.panel3.Controls.Add(this.nmDiscount);
@@ -110,6 +116,18 @@ namespace FoodManager
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(535, 78);
             this.panel3.TabIndex = 4;
+            // 
+            // txbTotalPrice
+            // 
+            this.txbTotalPrice.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txbTotalPrice.ForeColor = System.Drawing.Color.OrangeRed;
+            this.txbTotalPrice.Location = new System.Drawing.Point(239, 25);
+            this.txbTotalPrice.Name = "txbTotalPrice";
+            this.txbTotalPrice.ReadOnly = true;
+            this.txbTotalPrice.Size = new System.Drawing.Size(168, 28);
+            this.txbTotalPrice.TabIndex = 8;
+            this.txbTotalPrice.Text = "0";
+            this.txbTotalPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // cnSwitchTable
             // 
@@ -130,7 +148,7 @@ namespace FoodManager
             // 
             // nmDiscount
             // 
-            this.nmDiscount.Location = new System.Drawing.Point(175, 47);
+            this.nmDiscount.Location = new System.Drawing.Point(125, 47);
             this.nmDiscount.Name = "nmDiscount";
             this.nmDiscount.Size = new System.Drawing.Size(108, 27);
             this.nmDiscount.TabIndex = 5;
@@ -138,7 +156,7 @@ namespace FoodManager
             // 
             // btnDiscount
             // 
-            this.btnDiscount.Location = new System.Drawing.Point(175, 7);
+            this.btnDiscount.Location = new System.Drawing.Point(125, 7);
             this.btnDiscount.Name = "btnDiscount";
             this.btnDiscount.Size = new System.Drawing.Size(108, 34);
             this.btnDiscount.TabIndex = 4;
@@ -217,12 +235,38 @@ namespace FoodManager
             // 
             // lsvBill
             // 
+            this.lsvBill.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
             this.lsvBill.HideSelection = false;
-            this.lsvBill.Location = new System.Drawing.Point(0, 4);
+            this.lsvBill.Location = new System.Drawing.Point(0, 3);
             this.lsvBill.Name = "lsvBill";
-            this.lsvBill.Size = new System.Drawing.Size(535, 477);
+            this.lsvBill.Size = new System.Drawing.Size(532, 478);
             this.lsvBill.TabIndex = 0;
             this.lsvBill.UseCompatibleStateImageBehavior = false;
+            this.lsvBill.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Tên món";
+            this.columnHeader1.Width = 200;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Số lượng";
+            this.columnHeader2.Width = 80;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Đơn giá";
+            this.columnHeader3.Width = 80;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Thành tiền";
+            this.columnHeader4.Width = 90;
             // 
             // flpTable
             // 
@@ -235,7 +279,7 @@ namespace FoodManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1136, 715);
+            this.ClientSize = new System.Drawing.Size(1141, 705);
             this.Controls.Add(this.flpTable);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -249,6 +293,7 @@ namespace FoodManager
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmDiscount)).EndInit();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nmFoodCount)).EndInit();
@@ -277,7 +322,12 @@ namespace FoodManager
         private System.Windows.Forms.ComboBox cbFood;
         private System.Windows.Forms.ComboBox cbCategory;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ListView lsvBill;
         private System.Windows.Forms.FlowLayoutPanel flpTable;
+        private System.Windows.Forms.TextBox txbTotalPrice;
+        private System.Windows.Forms.ListView lsvBill;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }
