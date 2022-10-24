@@ -29,7 +29,7 @@ namespace Repository.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-37VOAJ4\\DUYNGUYEN;uid=sa;pwd=12345;database=FoodManager;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer("Data Source=KIND\\SQLEXPRESS;Initial Catalog=FoodManager;Persist Security Info=True;User ID=sa;Password=12345");
             }
         }
 
@@ -124,7 +124,12 @@ namespace Repository.Models
 
             modelBuilder.Entity<Table>(entity =>
             {
+                entity.HasKey(e => e.TableId)
+                    .HasName("PK__Table__7D5F01EE04E4D0C8");
                 entity.ToTable("Table");
+                entity.Property(e => e.TableId).HasColumnName("TableId");
+                entity.Property(e => e.TableName).HasMaxLength(50);
+                entity.Property(e => e.Status).HasColumnName("Status");
             });
 
             modelBuilder.Entity<User>(entity =>

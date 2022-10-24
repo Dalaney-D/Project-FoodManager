@@ -17,10 +17,328 @@ namespace FoodManager.Views
 {
     public partial class Admin : Form
     {
+        public static User _user = Login._user;
         public Admin()
         {
-            InitializeComponent();
+            if (_user.Role.Equals("Admin"))
+            {
+                InitializeComponent();
+                loadDataCate();
+                loadDataTable();
+            }
         }
+
+        #region methods Category
+        void loadDataCate()
+        {
+            var CategoryRepo = new RepositoryBase<Category>();
+            var listCategory = CategoryRepo.GetAll().Select(e => new { e.CateId, e.CateName }).ToList();
+            dtgvCategory.DataSource = listCategory;
+        }
+
+        void ResetFormCate()
+        {
+            txtCategoryID.Text = "";
+            txtNameCategory.Text = "";
+
+            btnDeleteCategory.Enabled = false;
+            btnEditCategory.Enabled = false;
+            btnAddCategory.Enabled = true;
+            btnSearchCategory.Enabled = true;
+        }
+
+        void searchCate()
+        {
+            var CategoryRepo = new RepositoryBase<Category>();
+            var listCategory = CategoryRepo.GetAll().Select(e => new { e.CateId, e.CateName }).Where(e => e.CateName.Contains(txtSearchCategory.Text)).ToList();
+            dtgvCategory.DataSource = listCategory;
+            ResetFormCate();
+        }
+
+        bool CheckNullCateName()
+        {
+            if (txtNameCategory.Text == "")
+            {
+                MessageBox.Show("Tên danh mục không phải là Null, vui lòng thử lại", "Thông báo", MessageBoxButtons.OK);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        void addCate()
+        {
+            if (!CheckNullCateName())
+            {
+                return;
+            }
+            var CateName = txtNameCategory.Text.ToString();
+            var CategoryRepo = new RepositoryBase<Category>();
+            var Category = new Category();
+            Category.CateName = CateName;
+            CategoryRepo.Create(Category);
+            var ListCategory = CategoryRepo.GetAll().Select(e => new { e.CateId, e.CateName }).ToList();
+            dtgvCategory.DataSource = ListCategory;
+            ResetFormCate();
+        }
+
+        void deleteCate()
+        {
+            var ID = txtCategoryID.Text;
+            var CategoryRepo = new RepositoryBase<Category>();
+            var obj = CategoryRepo.GetAll().Where(e => e.CateId.ToString().Equals(ID)).FirstOrDefault();
+            if (obj != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa không ? ", "Thông báo", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    CategoryRepo.Delete(obj);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do nothing
+                }
+            }
+            var listCategory = CategoryRepo.GetAll().Select(e => new { e.CateId, e.CateName }).ToList();
+            dtgvCategory.DataSource = listCategory;
+            ResetFormCate();
+        }
+
+        bool CheckNullCate()
+        {
+            if (txtCategoryID.Text == "" || txtNameCategory.Text == "")
+            {
+                MessageBox.Show("Tất cả đầu vào không phải là Null, vui lòng thử lại", "Thông báo", MessageBoxButtons.OK);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        void editCate()
+        {
+            if (!CheckNullCate())
+            {
+                return;
+            }
+            var CateID = txtCategoryID.Text;
+            var CateName = txtNameCategory.Text;
+            var CategoryRepo = new RepositoryBase<Category>();
+            var cate = CategoryRepo.GetAll().Where(e => e.CateId.ToString().Equals(CateID)).FirstOrDefault();
+            if (cate != null)
+            {
+                cate.CateName = CateName;
+                CategoryRepo.Update(cate);
+            }
+            var listCate = CategoryRepo.GetAll().Select(e => new { e.CateId, e.CateName }).ToList();
+            dtgvCategory.DataSource = listCate;
+            ResetFormCate();
+        }
+        #endregion
+
+        #region events Category
+        private void btnShowCategory_Click(object sender, EventArgs e)
+        {
+            ResetFormCate();
+            loadDataCate();
+        }
+
+        private void dtgvCategory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                txtCategoryID.Enabled = false;
+                var rowSelected = this.dtgvCategory.Rows[e.RowIndex];
+                txtCategoryID.Text = rowSelected.Cells["CateId"].Value.ToString();
+                txtNameCategory.Text = rowSelected.Cells["CateName"].Value.ToString();
+            }
+            btnAddCategory.Enabled = false;
+            btnDeleteCategory.Enabled = true;
+            btnEditCategory.Enabled = true;
+            btnSearchCategory.Enabled = true;
+            btnShowCategory.Enabled = true;
+        }
+
+        private void btnSearchCategory_Click(object sender, EventArgs e)
+        {
+            searchCate();
+        }
+
+        private void btnAddCategory_Click(object sender, EventArgs e)
+        {
+            addCate();
+        }
+
+        private void btnDeleteCategory_Click(object sender, EventArgs e)
+        {
+            deleteCate();
+        }
+
+        private void btnEditCategory_Click(object sender, EventArgs e)
+        {
+            editCate();
+        }
+        #endregion
+
+        #region methods Table
+
+        void loadDataTable()
+        {
+            var TableRepo = new RepositoryBase<Table>();
+            var listTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).ToList();
+            dtgvTable.DataSource = listTable;
+        }
+
+        void ResetFormTable()
+        {
+            txtIDTable.Text = "";
+            txtTableName.Text = "";
+            btnDeleteTable.Enabled = false;
+            btnEditTable.Enabled = false;
+            btnAddTable.Enabled = true;
+            btnSearchTable.Enabled = true;
+        }
+
+        void searchTable()
+        {
+            var TableRepo = new RepositoryBase<Table>();
+            var listTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).Where(e => e.TableName.Contains(txtSearchTable.Text)).ToList();
+            dtgvTable.DataSource = listTable;
+            ResetFormCate();
+        }
+
+        bool CheckNullTableName()
+        {
+            if (txtTableName.Text == "")
+            {
+                MessageBox.Show("Tên bàn không phải là Null, vui lòng thử lại", "Thông báo", MessageBoxButtons.OK);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        void addTable()
+        {
+            if (!CheckNullTableName())
+            {
+                return;
+            }
+            var TableName = txtTableName.Text.ToString();
+            var TableRepo = new RepositoryBase<Table>();
+            var Table = new Table();
+            Table.TableName = TableName;
+            TableRepo.Create(Table);
+            var ListTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).ToList();
+            dtgvTable.DataSource = ListTable;
+            ResetFormCate();
+        }
+
+        void deleteTable()
+        {
+            var ID = txtIDTable.Text;
+            var TableRepo = new RepositoryBase<Table>();
+            var obj = TableRepo.GetAll().Where(e => e.TableId.ToString().Equals(ID)).FirstOrDefault();
+            if (obj != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa không ? ", "Thông báo", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    TableRepo.Delete(obj);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do nothing
+                }
+            }
+            var listTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).ToList();
+            dtgvTable.DataSource = listTable;
+            ResetFormCate();
+        }
+
+        bool CheckNullTable()
+        {
+            if (txtIDTable.Text == "" || txtTableName.Text == "")
+            {
+                MessageBox.Show("Tất cả đầu vào không phải là Null, vui lòng thử lại", "Thông báo", MessageBoxButtons.OK);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        void editTable()
+        {
+            if (!CheckNullTable())
+            {
+                return;
+            }
+            var TableID = txtIDTable.Text;
+            var TableName = txtTableName.Text;
+            var TableRepo = new RepositoryBase<Table>();
+            var table = TableRepo.GetAll().Where(e => e.TableId.ToString().Equals(TableID)).FirstOrDefault();
+            if (table != null)
+            {
+                table.TableName = TableName;
+                TableRepo.Update(table);
+            }
+            var listTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).ToList();
+            dtgvTable.DataSource = listTable;
+            ResetFormCate();
+        }
+        #endregion
+
+        #region events Table
+        private void btnSearchTable_Click(object sender, EventArgs e)
+        {
+            searchTable();
+            ResetFormTable();
+        }
+
+        private void dtgvTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var rowSelected = this.dtgvTable.Rows[e.RowIndex];
+                txtIDTable.Text = rowSelected.Cells["TableId"].Value.ToString();
+                txtTableName.Text = rowSelected.Cells["TableName"].Value.ToString();
+            }
+            btnAddTable.Enabled = false;
+            btnDeleteTable.Enabled = true;
+            btnEditTable.Enabled = true;
+            btnSearchTable.Enabled = true;
+            btnShowTable.Enabled = true;
+        }
+
+        private void btnAddTable_Click(object sender, EventArgs e)
+        {
+            addTable();
+        }
+
+        private void btnDeleteTable_Click(object sender, EventArgs e)
+        {
+            deleteTable();
+        }
+
+        private void btnEditTable_Click(object sender, EventArgs e)
+        {
+            editTable();
+        }
+
+        private void btnShowTable_Click(object sender, EventArgs e)
+        {
+            ResetFormTable();
+            loadDataTable();
+        }
+        #endregion
 
         private void tcAdmin_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -206,6 +524,6 @@ namespace FoodManager.Views
         private void btnCancelChange_Click(object sender, EventArgs e)
         {
             ResetFormAccount();
-        }
+        }      
     }
     }
