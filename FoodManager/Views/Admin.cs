@@ -119,7 +119,7 @@ namespace FoodManager.Views
 
             if (checkUsername != null)
             {
-                MessageBox.Show("Tên đăng nhập này đã tồn tại, Vùi lòng nhập tên đăng nhập khác", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Tên đăng nhập này đã tồn tại, Vui lòng nhập tên đăng nhập khác", "Error", MessageBoxButtons.OK);
                 btnEditAccount.Enabled = false;
                 btnDeleteAccount.Enabled = false;
                 return;
