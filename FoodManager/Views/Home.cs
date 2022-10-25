@@ -31,6 +31,7 @@ namespace FoodManager
             //dtgvTest.DataSource = list;
             LoadTable();
             LoadCategory();
+            LoadComboboxTable();
         }
 
         public Home(User user)
@@ -48,6 +49,7 @@ namespace FoodManager
             //dtgvTest.DataSource = list;
             LoadTable();
             LoadCategory();
+            LoadComboboxTable();
         }
 
 
@@ -145,6 +147,14 @@ namespace FoodManager
                 orderId = item.OrderId;
             }
             return orderId;
+        }
+
+        public void LoadComboboxTable()
+        {
+            var repo3 = new RepositoryBase<Table>();
+            var list = repo3.GetAll().Select(p => p).ToList();
+            cbSwitchTable.DataSource = list;
+            cbSwitchTable.DisplayMember = "TableName";
         }
 
         #endregion
@@ -263,6 +273,118 @@ namespace FoodManager
             ShowBill(tableId);
             LoadTable();
         }
+
+        private void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            var repo1 = new RepositoryBase<Order>();
+            var repo2 = new RepositoryBase<OrderDetail>();
+            var repo3 = new RepositoryBase<Table>();
+            int orderId = GetOrderIDByTableID(tableId);
+            var table = repo3.GetAll().Where(p => p.TableId == tableId).FirstOrDefault();
+            DateTime date = DateTime.Now;
+            //int foodId = (cbFood.SelectedItem as Product).ProductId;
+            //int quantity = (int)nmFoodCount.Value;
+            //DateTime date = DateTime.Now;
+
+            //int discount = (int)nmDiscount.Value;
+            //double totalPrice = Convert.ToDouble(txbTotalPrice.Text.Split(',')[0]);
+            //double finalTotalPrice = totalPrice - (totalPrice / 100) * discount;
+
+            if (orderId == -1)
+            {
+                MessageBox.Show(table.TableName + " chưa có hóa đơn.", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }
+            else
+            {
+                var text = repo1.GetAll().Where(p => p.OrderId == orderId).FirstOrDefault();
+
+                if (text != null)
+                {
+                    OrderDetail orderDetail2 = new OrderDetail();
+
+                    //if (MessageBox.Show(String.Format("Bạn có chắc thanh toán hóa đơn cho bàn {0}\n Tổng tiền - (Tổng tiền / 100) x Giảm giá\n=> {1} - ({1} / 100) * {2} = {3}", table.TableName, totalPrice, discount, finalTotalPrice), "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    if (MessageBox.Show("Bạn có chắc thanh toán hóa đơn cho " + table.TableName, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        text.Status = Convert.ToBoolean("True");
+                        text.DateCheckOut = date;
+                        //text.Discount = discount;
+                        repo1.Update(text);
+                        table.Status = Convert.ToBoolean("False");
+                        repo3.Update(table);
+                    }
+                    else
+                    {
+                        //do nothing
+                    }
+                }
+            }
+            ShowBill(tableId);
+            LoadTable();
+        }
+        private void btnSwitchTable_Click(object sender, EventArgs e)
+        {
+            var repo1 = new RepositoryBase<Order>();
+            var repo3 = new RepositoryBase<Table>();
+            var status = (cbSwitchTable.SelectedItem as Table).Status;
+            int tableIdNew = (cbSwitchTable.SelectedItem as Table).TableId;
+            int orderIdOld = GetOrderIDByTableID(tableId);
+            int orderIdNew = GetOrderIDByTableID(tableIdNew);
+
+            if (tableId != 0)
+            {
+                if (status == false)
+                {
+                    var textOld = repo1.GetAll().Where(p => p.OrderId == orderIdOld).FirstOrDefault();
+                    var textNew = repo1.GetAll().Where(p => p.OrderId == orderIdNew).FirstOrDefault();
+                    var tableOld = repo3.GetAll().Where(p => p.TableId == tableId).FirstOrDefault();
+                    var tableNew = repo3.GetAll().Where(p => p.TableId == tableIdNew).FirstOrDefault();
+
+                    if (MessageBox.Show("Bạn có thật sự muốn chuyển từ " + tableOld.TableName + " qua " + (cbSwitchTable.SelectedItem as Table).TableName, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        if (textNew != null)
+                        {
+                            int tableIdOld = tableId;
+                            tableId = tableIdNew; //id moi
+                            tableIdNew = tableIdOld; //id cu
+
+                            textOld.TableId = tableId;
+                            textNew.TableId = tableIdNew;
+                            repo1.Update(textOld);
+                            repo1.Update(textNew);
+                        }
+                        else
+                        {
+                            if (textOld != null)
+                            {
+                                textOld.TableId = tableIdNew;
+                                repo1.Update(textOld);
+                                tableOld.Status = Convert.ToBoolean("False");
+                                repo3.Update(tableOld);
+                                tableNew.Status = Convert.ToBoolean("True");
+                                repo3.Update(tableNew);
+                            } 
+                            else
+                            {
+                                MessageBox.Show("Bàn hiện tại vẫn chưa có khách.", "Thông báo", MessageBoxButtons.OK);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Bàn mới hiện đang có khách.", "Thông báo", MessageBoxButtons.OK);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chưa chọn bàn hiện tại.", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }
+            ShowBill(tableId);
+            LoadTable();
+        }
+
         #endregion
 
 
