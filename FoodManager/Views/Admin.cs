@@ -348,7 +348,13 @@ namespace FoodManager.Views
             var OrderRepo = new RepositoryBase<Order>();            
             var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total }).Where(e => e.DateCheckIn >= checkIn && e.DateCheckOut <= checkOut).ToList();
             dtgvBill.DataSource = listBill;
-           
+            int totalPrice = 0;
+            foreach (var item in listBill)
+            {
+                totalPrice += item.Total.Value;
+            }
+            txtTotal.Text = totalPrice.ToString();
+
         }
 
         void loadListBill()
@@ -356,7 +362,14 @@ namespace FoodManager.Views
             var OrderRepo = new RepositoryBase<Order>();
             var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total }).ToList();
             dtgvBill.DataSource = listBill;
+            int totalPrice = 0;
+            foreach (var item in listBill)
+            {
+                totalPrice += item.Total.Value;               
+            }
+            txtTotal.Text = totalPrice.ToString();
         }
+       
         #endregion
 
         #region events turnover
@@ -364,7 +377,12 @@ namespace FoodManager.Views
         private void btnViewBill_Click(object sender, EventArgs e)
         {
             loadListBill(dtpkFromDate.Value, dtpkToDate.Value);
-        }              
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
         #endregion
 
 
