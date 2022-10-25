@@ -25,6 +25,7 @@ namespace FoodManager.Views
                 InitializeComponent();
                 loadDataCate();
                 loadDataTable();
+                loadListBill();
             }
         }
 
@@ -208,7 +209,7 @@ namespace FoodManager.Views
             var TableRepo = new RepositoryBase<Table>();
             var listTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).Where(e => e.TableName.Contains(txtSearchTable.Text)).ToList();
             dtgvTable.DataSource = listTable;
-            ResetFormCate();
+            ResetFormTable();
         }
 
         bool CheckNullTableName()
@@ -237,7 +238,7 @@ namespace FoodManager.Views
             TableRepo.Create(Table);
             var ListTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).ToList();
             dtgvTable.DataSource = ListTable;
-            ResetFormCate();
+            ResetFormTable();
         }
 
         void deleteTable()
@@ -259,7 +260,7 @@ namespace FoodManager.Views
             }
             var listTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).ToList();
             dtgvTable.DataSource = listTable;
-            ResetFormCate();
+            ResetFormTable();
         }
 
         bool CheckNullTable()
@@ -292,7 +293,7 @@ namespace FoodManager.Views
             }
             var listTable = TableRepo.GetAll().Select(e => new { e.TableId, e.TableName }).ToList();
             dtgvTable.DataSource = listTable;
-            ResetFormCate();
+            ResetFormTable();
         }
         #endregion
 
@@ -339,6 +340,33 @@ namespace FoodManager.Views
             loadDataTable();
         }
         #endregion
+
+        #region methods turnover
+        
+        void loadListBill(DateTime? checkIn, DateTime checkOut)
+        {                  
+            var OrderRepo = new RepositoryBase<Order>();            
+            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total }).Where(e => e.DateCheckIn >= checkIn && e.DateCheckOut <= checkOut).ToList();
+            dtgvBill.DataSource = listBill;
+           
+        }
+
+        void loadListBill()
+        {
+            var OrderRepo = new RepositoryBase<Order>();
+            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total }).ToList();
+            dtgvBill.DataSource = listBill;
+        }
+        #endregion
+
+        #region events turnover
+
+        private void btnViewBill_Click(object sender, EventArgs e)
+        {
+            loadListBill(dtpkFromDate.Value, dtpkToDate.Value);
+        }              
+        #endregion
+
 
         private void tcAdmin_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -524,6 +552,8 @@ namespace FoodManager.Views
         private void btnCancelChange_Click(object sender, EventArgs e)
         {
             ResetFormAccount();
-        }      
+        }
+
+        
     }
     }

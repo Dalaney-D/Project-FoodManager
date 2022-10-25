@@ -40,7 +40,7 @@ namespace Repository.Models
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(e => e.CateId)
-                    .HasName("PK__Category__27638D74F1C530F9");
+                    .HasName("PK__Category__27638D74B7651EFF");
 
                 entity.ToTable("Category");
 
@@ -125,7 +125,7 @@ namespace Repository.Models
             modelBuilder.Entity<Table>(entity =>
             {
                 entity.HasKey(e => e.TableId)
-                    .HasName("PK__Table__7D5F01EE04E4D0C8");
+                    .HasName("PK__Table__7D5F01EE46B1EBE4");
                 entity.ToTable("Table");
                 entity.Property(e => e.TableId).HasColumnName("TableId");
                 entity.Property(e => e.TableName).HasMaxLength(50);
