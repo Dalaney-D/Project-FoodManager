@@ -353,7 +353,7 @@ namespace FoodManager.Views
             {
                 totalPrice += Convert.ToInt32(item.Total);
             }
-            txtTotal.Text = totalPrice.ToString();
+            txtTotal.Text = String.Format("{0:0,0 vnđ}", totalPrice);
 
         }
 
@@ -367,7 +367,7 @@ namespace FoodManager.Views
             {
                 totalPrice += Convert.ToInt32(item.Total);               
             }
-            txtTotal.Text = totalPrice.ToString();
+            txtTotal.Text = String.Format("{0:0,0 vnđ}", totalPrice);
         }
        
         #endregion
