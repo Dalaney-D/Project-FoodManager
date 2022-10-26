@@ -252,7 +252,14 @@ namespace FoodManager.Views
                 DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa không ? ", "Thông báo", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    TableRepo.Delete(obj);
+                    if(obj.Status) 
+                    {
+                        MessageBox.Show("Bàn ăn đang có người, không thể xóa !", "Thông báo", MessageBoxButtons.OK);
+                    }
+                    else 
+                    {
+                        TableRepo.Delete(obj);
+                    }                    
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -344,11 +351,13 @@ namespace FoodManager.Views
 
         #region methods turnover
         
-        void loadListBill(DateTime? checkIn, DateTime checkOut)
+        void loadListBill(DateTime checkIn, DateTime checkOut)
         {                  
             var OrderRepo = new RepositoryBase<Order>();            
-            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total, e.Status }).Where(e => e.DateCheckIn >= checkIn && e.DateCheckOut <= checkOut && Convert.ToInt32(e.Status) == 1).ToList();
+            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total, e.Status }).Where(e => e.DateCheckOut >= checkIn && e.DateCheckOut <= checkOut && Convert.ToInt32(e.Status) == 1).ToList();
             dtgvBill.DataSource = listBill;
+            dtgvBill.Columns[5].ToString();
+            dtgvBill.Columns[5].DefaultCellStyle.Format = "00,0 vnđ";
             int totalPrice = 0;
             foreach (var item in listBill)
             {
@@ -363,6 +372,8 @@ namespace FoodManager.Views
             var OrderRepo = new RepositoryBase<Order>();
             var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total, e.Status }).Where(e => Convert.ToInt32(e.Status) == 1).ToList();
             dtgvBill.DataSource = listBill;
+            dtgvBill.Columns[5].ToString();
+            dtgvBill.Columns[5].DefaultCellStyle.Format = "00,0 vnđ";
             int totalPrice = 0;
             foreach (var item in listBill)
             {

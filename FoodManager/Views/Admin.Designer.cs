@@ -121,6 +121,8 @@ namespace FoodManager.Views
             this.label9 = new System.Windows.Forms.Label();
             this.dtgvBill = new System.Windows.Forms.DataGridView();
             this.tcAdmin = new System.Windows.Forms.TabControl();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.tpAccount.SuspendLayout();
             this.panel27.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvAccount)).BeginInit();
@@ -957,6 +959,8 @@ namespace FoodManager.Views
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label16);
+            this.panel2.Controls.Add(this.label15);
             this.panel2.Controls.Add(this.btnViewBill);
             this.panel2.Controls.Add(this.dtpkToDate);
             this.panel2.Controls.Add(this.dtpkFromDate);
@@ -977,16 +981,16 @@ namespace FoodManager.Views
             // 
             // dtpkToDate
             // 
-            this.dtpkToDate.Location = new System.Drawing.Point(745, 3);
+            this.dtpkToDate.Location = new System.Drawing.Point(733, 6);
             this.dtpkToDate.Name = "dtpkToDate";
-            this.dtpkToDate.Size = new System.Drawing.Size(288, 27);
+            this.dtpkToDate.Size = new System.Drawing.Size(268, 27);
             this.dtpkToDate.TabIndex = 1;
             // 
             // dtpkFromDate
             // 
-            this.dtpkFromDate.Location = new System.Drawing.Point(4, 3);
+            this.dtpkFromDate.Location = new System.Drawing.Point(123, 6);
             this.dtpkFromDate.Name = "dtpkFromDate";
-            this.dtpkFromDate.Size = new System.Drawing.Size(329, 27);
+            this.dtpkFromDate.Size = new System.Drawing.Size(275, 27);
             this.dtpkFromDate.TabIndex = 0;
             // 
             // panel1
@@ -1050,6 +1054,24 @@ namespace FoodManager.Views
             this.tcAdmin.SelectedIndexChanged += new System.EventHandler(this.tcAdmin_SelectedIndexChanged_1);
             this.tcAdmin.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcAdmin_Selected);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(15, 11);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(102, 20);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "Ngày bắt đầu:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(624, 11);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(103, 20);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "Ngày kết thúc:";
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1111,6 +1133,7 @@ namespace FoodManager.Views
             ((System.ComponentModel.ISupportInitialize)(this.dtgvFood)).EndInit();
             this.tpBill.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel21.ResumeLayout(false);
             this.panel21.PerformLayout();
@@ -1214,5 +1237,7 @@ namespace FoodManager.Views
         private System.Windows.Forms.Panel panel21;
         private System.Windows.Forms.TextBox txtTotal;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
     }
 }
