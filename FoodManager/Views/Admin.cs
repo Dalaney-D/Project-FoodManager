@@ -739,7 +739,7 @@ namespace FoodManager.Views
                 txtFoodID.Text = rowSelected.Cells["ProductID"].Value.ToString();
                 txtFoodName.Text = rowSelected.Cells["NameProduct"].Value.ToString();
                 mnFoodPrice.Value = Convert.ToDecimal(rowSelected.Cells["Price"].Value.ToString());
-                cbFoodCategory.SelectedValue=rowSelected.Cells["CateID"].Value.ToString();
+                cbFoodCategory.SelectedValue=rowSelected.Cells["CateId"].Value.ToString();
             }
             btnAddFood.Enabled = false;
             btnDeleteFood.Enabled = true;
