@@ -750,6 +750,7 @@ namespace FoodManager.Views
             this.btnSearchFood.TabIndex = 4;
             this.btnSearchFood.Text = "Tìm";
             this.btnSearchFood.UseVisualStyleBackColor = true;
+            this.btnSearchFood.Click += new System.EventHandler(this.btnSearchFood_Click);
             // 
             // panel5
             // 
@@ -770,6 +771,7 @@ namespace FoodManager.Views
             this.btnShowFood.TabIndex = 3;
             this.btnShowFood.Text = "Xem";
             this.btnShowFood.UseVisualStyleBackColor = true;
+            this.btnShowFood.Click += new System.EventHandler(this.btnShowFood_Click);
             // 
             // btnEditFood
             // 
@@ -779,6 +781,7 @@ namespace FoodManager.Views
             this.btnEditFood.TabIndex = 2;
             this.btnEditFood.Text = "Sửa";
             this.btnEditFood.UseVisualStyleBackColor = true;
+            this.btnEditFood.Click += new System.EventHandler(this.btnEditFood_Click);
             // 
             // btnDeleteFood
             // 
@@ -788,6 +791,7 @@ namespace FoodManager.Views
             this.btnDeleteFood.TabIndex = 1;
             this.btnDeleteFood.Text = "Xoá";
             this.btnDeleteFood.UseVisualStyleBackColor = true;
+            this.btnDeleteFood.Click += new System.EventHandler(this.btnDeleteFood_Click);
             // 
             // btnAddFood
             // 
@@ -797,6 +801,7 @@ namespace FoodManager.Views
             this.btnAddFood.TabIndex = 0;
             this.btnAddFood.Text = "Thêm";
             this.btnAddFood.UseVisualStyleBackColor = true;
+            this.btnAddFood.Click += new System.EventHandler(this.btnAddFood_Click);
             // 
             // panel4
             // 
@@ -822,7 +827,6 @@ namespace FoodManager.Views
             // 
             this.txtFoodName.Location = new System.Drawing.Point(116, 12);
             this.txtFoodName.Name = "txtFoodName";
-            this.txtFoodName.ReadOnly = true;
             this.txtFoodName.Size = new System.Drawing.Size(300, 27);
             this.txtFoodName.TabIndex = 1;
             // 
@@ -907,7 +911,6 @@ namespace FoodManager.Views
             // 
             this.txtFoodID.Location = new System.Drawing.Point(117, 12);
             this.txtFoodID.Name = "txtFoodID";
-            this.txtFoodID.ReadOnly = true;
             this.txtFoodID.Size = new System.Drawing.Size(299, 27);
             this.txtFoodID.TabIndex = 1;
             // 
@@ -938,6 +941,7 @@ namespace FoodManager.Views
             this.dtgvFood.RowTemplate.Height = 29;
             this.dtgvFood.Size = new System.Drawing.Size(564, 616);
             this.dtgvFood.TabIndex = 0;
+            this.dtgvFood.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvFood_CellDoubleClick);
             // 
             // tpBill
             // 
@@ -1043,6 +1047,8 @@ namespace FoodManager.Views
             this.tcAdmin.SelectedIndex = 0;
             this.tcAdmin.Size = new System.Drawing.Size(1055, 772);
             this.tcAdmin.TabIndex = 0;
+            this.tcAdmin.SelectedIndexChanged += new System.EventHandler(this.tcAdmin_SelectedIndexChanged_1);
+            this.tcAdmin.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcAdmin_Selected);
             // 
             // Admin
             // 

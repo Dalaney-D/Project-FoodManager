@@ -1,4 +1,5 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Repository;
 using Repository.Models;
 using System;
@@ -572,6 +573,189 @@ namespace FoodManager.Views
             ResetFormAccount();
         }
 
-        
+        private void btnShowFood_Click(object sender, EventArgs e)
+        {
+            btnAddFood.Enabled = true;
+            var FoodRepo = new RepositoryBase<Product>();
+            var listFood = FoodRepo.GetAll().ToList();
+            var item2 = FoodRepo.GetAll2().Include(p => p.Cate).Where(p => p.Cate.CateId==p.CateId ).ToList();
+                
+            var CateRepo = new RepositoryBase<Category>();
+            var listCategory = CateRepo.GetAll().ToList().Select(p => new { CateId = p.CateId, Name = p.CateName }).ToList();
+            cbFoodCategory.ValueMember = "CateId";
+            cbFoodCategory.DisplayMember = "Name";
+            cbFoodCategory.DataSource = (listCategory.ToArray());
+            dtgvFood.DataSource = item2;
+            ResetFormFood();
+        }
+
+        private void btnAddFood_Click(object sender, EventArgs e)
+        {
+            if (!CheckFoodNull())
+            {
+                return;
+            }
+            btnAddFood.Enabled = false;
+            var FoodRepo = new RepositoryBase<Product>();
+
+            var ProductId = int.Parse(txtFoodID.Text);
+            var FoodName = txtFoodName.Text;
+            var Price = double.Parse(mnFoodPrice.Value.ToString());
+            var CateId = int.Parse(cbFoodCategory.SelectedValue.ToString());
+            var CheckId = FoodRepo.GetAll().Where(p => p.ProductId==ProductId).FirstOrDefault();
+            if (ProductId == null)
+            {
+                MessageBox.Show("Please Input ProductId", "Error", MessageBoxButtons.OK);
+                btnAddFood.Enabled = true;
+
+                return;
+            }
+            if (CheckId != null)
+            {
+                MessageBox.Show("Duplicate Id, Please try another Id", "Error", MessageBoxButtons.OK);
+                btnAddFood.Enabled = true;
+                return;
+            }
+            var _food = new Product();
+            _food.ProductId = ProductId;
+            _food.NameProduct = FoodName;
+            _food.CateId = CateId;
+            _food.Price = Price;
+
+            FoodRepo.Create(_food);
+
+            var listFood = FoodRepo.GetAll().ToList();
+            dtgvFood.DataSource = listFood;
+            btnAddFood.Enabled = true;
+            ResetFormFood();
+        }
+        private void ResetFormFood()
+        {
+            txtFoodID.Text = "";
+            txtFoodName.Text = "";
+            mnFoodPrice.Value = 0;
+            txtFoodID.Enabled = true;
+            cbFoodCategory.SelectedIndex = 0;
+            btnAddFood.Enabled = true;
+            btnEditFood.Enabled = false;
+            btnDeleteFood.Enabled = false;
+        }
+        private bool CheckFoodNull()
+        {
+            if (txtFoodID.Text == "" || txtFoodName.Text == "")
+            {
+                MessageBox.Show("All Input is not Null, please try again", "Notification", MessageBoxButtons.OK);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void btnSearchFood_Click(object sender, EventArgs e)
+        {
+            var FoodRepo = new RepositoryBase<Product>();
+            var list = FoodRepo.GetAll().Where(p => p.NameProduct.Contains(txtSearchFoodName.Text)).ToList();
+            if (list != null)
+            {
+                dtgvFood.DataSource = list;
+            }
+            else
+            {
+                MessageBox.Show("Cannot Find Any Food. Please Try again !", "Notification", MessageBoxButtons.OK);
+            }
+        }
+
+        private void btnEditFood_Click(object sender, EventArgs e)
+        {
+            if (!CheckFoodNull())
+            {
+                return;
+            }
+            btnEditFood.Enabled = false;
+            var ProductId = int.Parse(txtFoodID.Text);
+            var FoodName = txtFoodName.Text;
+            var Price = double.Parse(mnFoodPrice.Value.ToString());
+            var CateId = int.Parse(cbFoodCategory.SelectedValue.ToString());
+
+            var FoodRepo = new RepositoryBase<Product>();
+            var _food = FoodRepo.GetAll().Where(p => p.ProductId == ProductId).FirstOrDefault();
+
+            if (_food != null)
+            {
+                _food.ProductId = ProductId;
+                _food.NameProduct = FoodName;
+                _food.CateId = CateId;
+                _food.Price = Price;
+                FoodRepo.Update(_food);
+            }
+
+            var listFood = FoodRepo.GetAll().ToList();
+            dtgvFood.DataSource = listFood;
+            txtFoodID.Enabled = true;
+            btnEditFood.Enabled = true;
+            ResetFormFood();
+        }
+
+        private void btnDeleteFood_Click(object sender, EventArgs e)
+        {
+            btnDeleteFood.Enabled = false;
+            var ProductId = int.Parse(txtFoodID.Text);
+            var FoodRepo = new RepositoryBase<Product>();
+            var obj = FoodRepo.GetAll().Where(p => p.ProductId == ProductId).FirstOrDefault();
+            if (obj != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you want to Delete ", "Delete Item", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    FoodRepo.Delete(obj);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do nothing
+                }
+                ResetFormFood();
+            }
+
+            var listFood = FoodRepo.GetAll().ToList();
+            dtgvFood.DataSource = listFood;
+
+            btnDeleteFood.Enabled = true;
+            txtFoodID.Enabled = true;
+        }
+
+        private void dtgvFood_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //get list accountType to combobox
+            var CateRepo = new RepositoryBase<Category>();
+            
+
+            //e.RowIndex; // dong duoc select
+            if (e.RowIndex >= 0)
+            {
+                txtFoodID.Enabled = false;
+                var rowSelected = this.dtgvFood.Rows[e.RowIndex];
+                txtFoodID.Text = rowSelected.Cells["ProductID"].Value.ToString();
+                txtFoodName.Text = rowSelected.Cells["NameProduct"].Value.ToString();
+                mnFoodPrice.Value = Convert.ToDecimal(rowSelected.Cells["Price"].Value.ToString());
+                cbFoodCategory.SelectedValue=rowSelected.Cells["CateID"].Value.ToString();
+            }
+            btnAddFood.Enabled = false;
+            btnDeleteFood.Enabled = true;
+            btnEditFood.Enabled = true;
+        }
+
+        private void tcAdmin_Selected(object sender, TabControlEventArgs e)
+        {
+
+        }
+
+        private void tcAdmin_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            btnEditFood.Enabled = false;
+            btnDeleteFood.Enabled = false;
+        }
     }
     }
+    
