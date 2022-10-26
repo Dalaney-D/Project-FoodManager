@@ -346,12 +346,12 @@ namespace FoodManager.Views
         void loadListBill(DateTime? checkIn, DateTime checkOut)
         {                  
             var OrderRepo = new RepositoryBase<Order>();            
-            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total }).Where(e => e.DateCheckIn >= checkIn && e.DateCheckOut <= checkOut).ToList();
+            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total, e.Status }).Where(e => e.DateCheckIn >= checkIn && e.DateCheckOut <= checkOut && Convert.ToInt32(e.Status) == 1).ToList();
             dtgvBill.DataSource = listBill;
             int totalPrice = 0;
             foreach (var item in listBill)
             {
-                totalPrice += item.Total.Value;
+                totalPrice += Convert.ToInt32(item.Total);
             }
             txtTotal.Text = totalPrice.ToString();
 
@@ -360,12 +360,12 @@ namespace FoodManager.Views
         void loadListBill()
         {
             var OrderRepo = new RepositoryBase<Order>();
-            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total }).ToList();
+            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total, e.Status }).Where(e => Convert.ToInt32(e.Status) == 1).ToList();
             dtgvBill.DataSource = listBill;
             int totalPrice = 0;
             foreach (var item in listBill)
             {
-                totalPrice += item.Total.Value;               
+                totalPrice += Convert.ToInt32(item.Total);               
             }
             txtTotal.Text = totalPrice.ToString();
         }

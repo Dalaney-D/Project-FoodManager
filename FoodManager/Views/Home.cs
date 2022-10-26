@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime;
 using System.Text;
@@ -106,7 +107,12 @@ namespace FoodManager
                     totalPrice += (item.Quantity * item.Product.Price);
                     lsvBill.Items.Add(lsvItem);
                 }
-                txbTotalPrice.Text = totalPrice.ToString("c");
+
+                //CultureInfo cultuer = new CultureInfo("vi-VN");
+                txbTotalPrice.Text = String.Format("{0:0,0 vnđ}", totalPrice);
+                
+                
+
             }
         }
 
@@ -308,6 +314,14 @@ namespace FoodManager
                     {
                         text.Status = Convert.ToBoolean("True");
                         text.DateCheckOut = date;
+                        var text2 = repo2.GetAll2().Include(p => p.Order).Include(p => p.Product).Where(p => p.OrderId == orderId).ToList();
+                        double total = 0;
+                        foreach (var item in text2)
+                        {
+                            total += (item.Quantity * item.Product.Price);
+                            
+                        }
+                        text.Total = Convert.ToInt32(total); 
                         //text.Discount = discount;
                         repo1.Update(text);
                         table.Status = Convert.ToBoolean("False");
