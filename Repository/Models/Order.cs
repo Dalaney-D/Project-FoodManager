@@ -19,6 +19,7 @@ namespace Repository.Models
         public DateTime? DateCheckOut { get; set; }
         public bool Status { get; set; }
         public int? Total { get; set; }
+        //public int Discount { get; set; }
 
         public virtual Table Table { get; set; }
         public virtual User User { get; set; }

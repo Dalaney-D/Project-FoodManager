@@ -16,7 +16,6 @@ namespace Repository.Models
         public string NameProduct { get; set; }
         public double Price { get; set; }
         public int CateId { get; set; }
-
         public virtual Category Cate { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
