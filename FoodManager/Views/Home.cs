@@ -226,7 +226,7 @@ namespace FoodManager
                 if (quantity > 0)
                 {
                     Order order = new Order();
-                    order.UserId = "duynv".ToString();
+                    order.UserId = _user.UserId.ToString();
                     order.TableId = tableId;
                     order.DateCheckIn = date;
                     repo1.Create(order);
@@ -239,6 +239,10 @@ namespace FoodManager
                     repo2.Create(orderDetail);
                     table.Status = Convert.ToBoolean("True");
                     repo3.Update(table);
+                }
+                if (quantity == 0) {
+                    MessageBox.Show("Không được nhập số 0.", "Error", MessageBoxButtons.OK);
+                    return;
                 }
                 else
                 {
