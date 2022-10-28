@@ -354,7 +354,7 @@ namespace FoodManager.Views
         void loadListBill(DateTime checkIn, DateTime checkOut)
         {                  
             var OrderRepo = new RepositoryBase<Order>();            
-            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total, e.Status }).Where(e => e.DateCheckOut >= checkIn && e.DateCheckOut <= checkOut && Convert.ToInt32(e.Status) == 1).ToList();
+            var listBill = OrderRepo.GetAll().Where(e => e.DateCheckOut >= checkIn && e.DateCheckOut <= checkOut && Convert.ToInt32(e.Status) == 1).Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total}).ToList();
             dtgvBill.DataSource = listBill;
             dtgvBill.Columns[5].ToString();
             dtgvBill.Columns[5].DefaultCellStyle.Format = "00,0 vnđ";
@@ -370,7 +370,7 @@ namespace FoodManager.Views
         void loadListBill()
         {
             var OrderRepo = new RepositoryBase<Order>();
-            var listBill = OrderRepo.GetAll().Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total, e.Status }).Where(e => Convert.ToInt32(e.Status) == 1).ToList();
+            var listBill = OrderRepo.GetAll().Where(e => Convert.ToInt32(e.Status) == 1).Select(e => new { e.OrderId, e.UserId, e.TableId, e.DateCheckIn, e.DateCheckOut, e.Total}).ToList();
             dtgvBill.DataSource = listBill;
             dtgvBill.Columns[5].ToString();
             dtgvBill.Columns[5].DefaultCellStyle.Format = "00,0 vnđ";

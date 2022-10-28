@@ -29,7 +29,7 @@ namespace Repository.Models
             if (!optionsBuilder.IsConfigured)
             {
 
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-37VOAJ4\\DUYNGUYEN;Initial Catalog=FoodManager;User ID=sa;Password=12345");
+                optionsBuilder.UseSqlServer("Data Source=KIND\\SQLEXPRESS;Initial Catalog=FoodManager;Persist Security Info=True;User ID=sa;Password=12345");
 
             }
         }
