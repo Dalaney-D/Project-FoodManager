@@ -589,8 +589,8 @@ namespace FoodManager.Views
             btnAddFood.Enabled = true;
             var FoodRepo = new RepositoryBase<Product>();
             var listFood = FoodRepo.GetAll().ToList();
-            var item2 = FoodRepo.GetAll2().Include(p => p.Cate).Where(p => p.Cate.CateId==p.CateId ).ToList();
-                
+            var item2 = FoodRepo.GetAll2().Include(p => p.Cate).Select(p => new { p.ProductId, p.NameProduct, p.Price, p.CateId, p.Cate.CateName }).ToList();
+
             var CateRepo = new RepositoryBase<Category>();
             var listCategory = CateRepo.GetAll().ToList().Select(p => new { CateId = p.CateId, Name = p.CateName }).ToList();
             cbFoodCategory.ValueMember = "CateId";
@@ -706,6 +706,7 @@ namespace FoodManager.Views
             dtgvFood.DataSource = listFood;
             txtFoodID.Enabled = true;
             btnEditFood.Enabled = true;
+            btnShowFood_Click(sender, e);
             ResetFormFood();
         }
 
@@ -749,8 +750,9 @@ namespace FoodManager.Views
                 var rowSelected = this.dtgvFood.Rows[e.RowIndex];
                 txtFoodID.Text = rowSelected.Cells["ProductID"].Value.ToString();
                 txtFoodName.Text = rowSelected.Cells["NameProduct"].Value.ToString();
+                cbFoodCategory.SelectedValue = rowSelected.Cells["CateName"].Value.ToString();
                 mnFoodPrice.Value = Convert.ToDecimal(rowSelected.Cells["Price"].Value.ToString());
-                cbFoodCategory.SelectedValue=rowSelected.Cells["CateId"].Value.ToString();
+                
             }
             btnAddFood.Enabled = false;
             btnDeleteFood.Enabled = true;
